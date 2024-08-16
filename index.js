@@ -30,6 +30,7 @@ class Game {
         for (let i = 0; i < this.board.length; i++) {
             const row = document.createElement("div");
             row.className = "row";
+            row.id = `row${i}`
             for (let j = 0; j < this.board[i].length; j++) {
                 const cell = document.createElement("div");
                 cell.id = (`${i}-${j}`);
@@ -104,11 +105,31 @@ class Game {
                 }
                 key.innerText = arrayRefrence[j];
                 keyboardRow.appendChild(key);
+
+                key.addEventListener("click", () => {
+                    this.handleKeyPress(arrayRefrence[j]);
+                });
             }
             keyboard.appendChild(keyboardRow);
         }
     }
 
+    handleKeyPress(key) {
+        if (key === "⏎") {
+            const selectedrow = document.getElementById(`row${this.currentRow}`);
+            const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim();
+            if (!wordlist.includes(textcontent.toLowerCase())) {
+                alert("Word not in the Word List")
+                return;
+            }
+            // if (textcontent.toLowerCase() === this.word.toLowerCase()) {
+            //     this.currentRow++;
+            //     this.activeCell = 0;
+            //     this.initializeBoard();
+            // }
+            // console.log(textcontent)
+        }
+    }
     handleCellClick(row, col) {
         if (row === this.currentRow) {
             const currentActiveCell = document.getElementById(`${
