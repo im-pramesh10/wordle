@@ -3,3 +3,30 @@ body {
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgb(110, 110, 110);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    margin: 4px;
+    font-weight: bold;
+}
+
+#board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

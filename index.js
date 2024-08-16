@@ -24,6 +24,7 @@ class Game {
             for (let j = 0; j < this.board[i].length; j++) {
                 const cell = document.createElement("div");
                 cell.id =(`${i}-${j}`);
+                cell.className = "cell";
                 cell.innerText = `${i}-${j}`;
                 row.appendChild(cell);
             }
