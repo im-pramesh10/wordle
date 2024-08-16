@@ -42,3 +42,31 @@ body {
     justify-content: center;
     align-items: center;
 }
+#keyboard {
+    margin: 10px;
+}
+.key {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgb(110, 110, 110);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    margin: 4px;
+    font-weight: bold;
+    transition: linear 0.3s;
+    background-color: rgb(34, 34, 34);
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.key:hover {
+    background-color: rgb(87, 87, 87);
+}
+.special-key {
+    width: 80px;
+    height: 40px;
+}
