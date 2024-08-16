@@ -16,6 +16,7 @@ class Game {
         }
 
         this.renderBoard();
+        this.renderKeyboard();
     }
 
     renderBoard() {
@@ -43,7 +44,65 @@ class Game {
     }
 
     renderKeyboard() {
-        
+        const firstrow = [
+            "Q",
+            "W",
+            "E",
+            "R",
+            "T",
+            "Y",
+            "U",
+            "I",
+            "O",
+            "P"
+        ];
+        const secondrow = [
+            "A",
+            "S",
+            "D",
+            "F",
+            "G",
+            "H",
+            "J",
+            "K",
+            "L"
+        ];
+        const thirdrow = [
+            "⏎",
+            "Z",
+            "X",
+            "C",
+            "V",
+            "B",
+            "N",
+            "M",
+            "⌫"
+        ];
+
+        const keyboard = document.getElementById("keyboard");
+        keyboard.innerHTML = "";
+        for (let i = 0; i < 3; i++) {
+            const keyboardRow = document.createElement("div");
+            keyboardRow.className = "row";
+            let arrayRefrence;
+            if (i === 0) {
+                arrayRefrence = firstrow;
+            } else if (i === 1) {
+                arrayRefrence = secondrow;
+            } else {
+                arrayRefrence = thirdrow;
+            }
+            for (let j = 0; j < arrayRefrence.length; j++) {
+                const key = document.createElement("button");
+                key.className = "key";
+                if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
+                    key.className = "key special-key";
+                }
+                key.innerText = arrayRefrence[j];
+                keyboardRow.appendChild(key);
+            }
+            keyboard.appendChild(keyboardRow);
+        }
     }
 
     handleCellClick(row, col) {
