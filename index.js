@@ -1,6 +1,9 @@
 import {wordlist} from "./wordlist.js";
 class Game {
     constructor() {
+        this.newGame();
+    }
+    newGame() {
         this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
         this.currentRow = 0;
         this.activeCell = 0;
@@ -39,22 +42,30 @@ class Game {
         }
     }
 
+    renderKeyboard() {
+        
+    }
+
     handleCellClick(row, col) {
         if (row === this.currentRow) {
-            const currentActiveCell = document.getElementById(`${this.currentRow}-${this.activeCell}`);
+            const currentActiveCell = document.getElementById(`${
+                this.currentRow
+            }-${
+                this.activeCell
+            }`);
             currentActiveCell.className = "cell";
             const cell = document.getElementById(`${row}-${col}`);
             cell.className = "cell active";
             this.activeCell = col;
         }
     }
-    start() {
-        console.log(this.word);
+    reStart() {
+        this.newGame();
     }
 }
+
+
 function main() {
     const game = new Game();
-    game.start();
 }
-
-main();
+main()
