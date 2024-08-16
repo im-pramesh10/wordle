@@ -13,7 +13,7 @@ body {
 .cell {
     width: 50px;
     height: 50px;
-    border: 5px solid rgb(110, 110, 110);
+    border: 2px solid rgb(110, 110, 110);
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -22,8 +22,16 @@ body {
     cursor: pointer;
     margin: 4px;
     font-weight: bold;
+    transition: linear 0.3s;
 }
 
+.cell:hover {
+    background-color: rgb(34, 34, 34);
+}
+.active {
+    /* background-color: rgb(32, 32, 32); */
+    border-color: rgb(255, 255, 255);
+}
 #board {
     display: flex;
     flex-direction: column;
