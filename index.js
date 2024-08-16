@@ -17,6 +17,10 @@ class Game {
 
         this.renderBoard();
         this.renderKeyboard();
+        if (this.currentRow === 6) {
+            this.showCorrectWord(this.word);
+            this.showReplayButton();
+        }
     }
 
     renderBoard() {
@@ -120,6 +124,22 @@ class Game {
     }
     reStart() {
         this.newGame();
+    }
+
+    showCorrectWord(word) {
+        const correctWord = document.getElementById("correct-word");
+        correctWord.innerHTML = `<p>Word: <span id="correct-word" style="font-weight: bold; color: rgb(75, 221, 62);">${word}</span></p>`;
+    }
+    showReplayButton() {
+
+        const replayContainer = document.getElementById("replay-container");
+        const replayButton = document.createElement("button");
+        replayButton.id = "replay";
+        replayButton.innerText = "⟳ Replay";
+        replayContainer.appendChild(replayButton);
+        replayButton.addEventListener("click", () => {
+            this.reStart();
+        });
     }
 }
 
