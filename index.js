@@ -11,16 +11,20 @@ class Game {
     }
     initializeBoard() {
         this.board = [];
+        this.boardState = [];
         for (let i = 0; i < 6; i++) {
             this.board.push(Array(5).fill(""));
+        }
+        for (let i = 0; i < 6; i++) {
+            this.boardState.push(Array(5).fill(0));
         }
 
         this.renderBoard();
         this.renderKeyboard();
-        if (this.currentRow === 6) {
-            this.showCorrectWord(this.word);
-            this.showReplayButton();
-        }
+        // if (this.currentRow === 6) {
+        //     this.showCorrectWord(this.word);
+        //     this.showReplayButton();
+        // }
     }
 
     renderBoard() {
@@ -37,6 +41,13 @@ class Game {
                 cell.className = "cell";
                 if (j === this.activeCell && i === this.currentRow) {
                     cell.className = "cell active";
+                }
+                if (this.boardState[i][j] === 1) {
+                    cell.className = "cell correct";
+                } else if (this.boardState[i][j] === 2) {
+                    cell.className = "cell present";
+                } else if (this.boardState[i][j] === 3) {
+                    cell.className = "cell absent";
                 }
                 cell.innerText = this.board[i][j];
                 cell.addEventListener("click", () => {
@@ -119,12 +130,43 @@ class Game {
             const selectedrow = document.getElementById(`row${
                 this.currentRow
             }`);
-            const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim();
-            if (!allowedList.includes(textcontent.toLowerCase())) {
+            const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim().toLowerCase();
+            if (!allowedList.includes(textcontent)) {
                 alert("Word not in the word List")
                 return;
             }
-            // handle comparing logic here
+            for (let i = 0; i < this.word.length; i++) {
+                if (this.word[i] === textcontent[i]) {
+                    // const correctCell = document.getElementById(`${
+                    //     this.currentRow
+                    // }-${i}`);
+                    // correctCell.className = "cell correct";
+                    this.boardState[this.currentRow][i] = 1;
+                } else if (this.word.includes(textcontent[i])) {
+                    // const presentCell = document.getElementById(`${
+                    //     this.currentRow
+                    // }-${i}`);
+                    // presentCell.className = "cell present";
+                    this.boardState[this.currentRow][i] = 2;
+                } else {
+                    // const absentCell = document.getElementById(`${
+                    //     this.currentRow
+                    // }-${i}`);
+                    // absentCell.className = "cell absent";
+                    this.boardState[this.currentRow][i] = 3;
+                }
+            }
+
+            if (this.currentRow === 5) {
+                this.showCorrectWord(this.word);
+                this.showReplayButton();
+                return;
+            }
+            this.currentRow ++;
+            this.activeCell = 0;
+            this.renderBoard();
+            // this.setActiveCell(this.currentRow, 0);
+            return;
         }
         if (key === "⌫") {
             const selectedCell = document.getElementById(`${
@@ -139,10 +181,12 @@ class Game {
                     this.activeCell - 1
                 }`);
                 previousCell.innerText = "";
+                this.board[this.currentRow][this.activeCell - 1] = "";
                 this.setActiveCell(this.currentRow, this.activeCell - 1);
                 return;
             }
             selectedCell.innerText = "";
+            this.board[this.currentRow][this.activeCell] = "";
             if (this.activeCell > 0) {
                 this.setActiveCell(this.currentRow, this.activeCell - 1);
             }
@@ -156,6 +200,7 @@ class Game {
                 this.activeCell
             }`);
             selectedCell.innerText = key;
+            this.board[this.currentRow][this.activeCell] = key;
             if (this.activeCell < 4) {
                 this.setActiveCell(this.currentRow, this.activeCell + 1);
             }
