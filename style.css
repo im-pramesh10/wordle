@@ -92,17 +92,17 @@ body {
 .correct, .correct:hover {
     background-color: rgb(153, 255, 0);
     color: rgb(0, 0, 0);
-    border: none;
+    border: 2px solid rgb(153, 255, 0);
 }
 .absent, .absent:hover {
-    background-color: rgb(56, 56, 56);
+    background-color: rgb(126, 126, 126);
     color: rgb(255, 255, 255);
-    border: none;
+    border: 2px solid rgb(126, 126, 126);
 }
 .present, .present:hover {
     background-color: rgb(243, 188, 7);
     color: rgb(27, 27, 27);
-    border: none;
+    border: 2px solid rgb(243, 188, 7);
 }
 @media screen and (max-width: 600px) {
     body {
