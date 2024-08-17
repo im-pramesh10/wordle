@@ -25,6 +25,33 @@ class Game {
 
         this.renderBoard();
         this.renderKeyboard();
+        this.handlePhysicalKeyboard();
+    }
+
+    handlePhysicalKeyboard() {
+        document.addEventListener("keydown", (event) => {
+            let key = event.key;
+            if (key >= "a" && key <= "z") {
+                key = key.toUpperCase();
+            } else if (key === "Backspace") {
+                key = "⌫";
+            } else if (key === "Enter") {
+                key = "⏎";
+            } else if (key === "ArrowLeft") {
+                if (this.activeCell > 0) {
+                    this.setActiveCell(this.currentRow, this.activeCell - 1);
+                }
+                return;
+            } else if (key === "ArrowRight") {
+                if (this.activeCell < 4) {
+                    this.setActiveCell(this.currentRow, this.activeCell + 1);
+                }
+                return;
+            } else {
+                key = "";
+            }
+            this.handleKeyPress(key);
+        })
     }
 
     renderBoard() {
@@ -206,6 +233,7 @@ class Game {
             return;
         }
         if (key >= "A" && key <= "Z") {
+            console.log(key);
             const selectedCell = document.getElementById(`${
                 this.currentRow
             }-${
