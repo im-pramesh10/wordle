@@ -137,6 +137,9 @@ class Game {
                 this.currentRow
             }`);
             const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim().toLowerCase();
+            if (textcontent.length !== 5) {
+               return 
+            }
             if (!allowedList.includes(textcontent)) {
                 alert("Word not in the word List")
                 return;
