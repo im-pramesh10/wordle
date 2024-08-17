@@ -113,12 +113,12 @@ class Game {
                 if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
                     key.className = "key special-key";
                 }
-                if (this.presentLetters.has(arrayRefrence[j])) {
+                if (this.correctLetters.has(arrayRefrence[j])) {
+                    key.className = "key correct";
+                } else if (this.presentLetters.has(arrayRefrence[j])) {
                     key.className = "key present";
                 } else if (this.absentLetters.has(arrayRefrence[j])) {
                     key.className = "key absent";
-                } else if (this.correctLetters.has(arrayRefrence[j])) {
-                    key.className = "key correct";
                 }
                 key.innerText = arrayRefrence[j];
                 keyboardRow.appendChild(key);
@@ -141,7 +141,7 @@ class Game {
             }`);
             const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim().toLowerCase();
             if (textcontent.length !== 5) {
-               return 
+                return
             }
             if (!allowedList.includes(textcontent)) {
                 alert("Word not in the word List")
@@ -151,18 +151,15 @@ class Game {
                 if (this.word[i] === textcontent[i]) {
                     this.boardState[this.currentRow][i] = 1; // correct
                     this.correctLetters.add(textcontent[i].toUpperCase());
-                    this.absentLetters.delete(textcontent[i].toUpperCase());
-                    this.presentLetters.delete(textcontent[i].toUpperCase());
+
                 } else if (this.word.includes(textcontent[i])) {
                     this.boardState[this.currentRow][i] = 2; // present
                     this.presentLetters.add(textcontent[i].toUpperCase());
-                    this.correctLetters.delete(textcontent[i].toUpperCase());
-                    this.absentLetters.delete(textcontent[i].toUpperCase());
+
                 } else {
                     this.boardState[this.currentRow][i] = 3; // absent
                     this.absentLetters.add(textcontent[i].toUpperCase());
-                    this.presentLetters.delete(textcontent[i].toUpperCase());
-                    this.correctLetters.delete(textcontent[i].toUpperCase());
+
                 }
             }
             if (textcontent === this.word) {
