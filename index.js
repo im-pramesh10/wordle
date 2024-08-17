@@ -40,7 +40,7 @@ class Game {
                 }
                 cell.innerText = this.board[i][j];
                 cell.addEventListener("click", () => {
-                    this.handleCellClick(i, j);
+                    this.setActiveCell(i, j);
                 })
                 row.appendChild(cell);
             }
@@ -116,21 +116,53 @@ class Game {
 
     handleKeyPress(key) {
         if (key === "⏎") {
-            const selectedrow = document.getElementById(`row${this.currentRow}`);
+            const selectedrow = document.getElementById(`row${
+                this.currentRow
+            }`);
             const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim();
             if (!wordlist.includes(textcontent.toLowerCase())) {
-                alert("Word not in the Word List")
+                alert("Word not in the word List")
                 return;
             }
-            // if (textcontent.toLowerCase() === this.word.toLowerCase()) {
-            //     this.currentRow++;
-            //     this.activeCell = 0;
-            //     this.initializeBoard();
-            // }
-            // console.log(textcontent)
+            // handle comparing logic here
+        }
+        if (key === "⌫") {
+            const selectedCell = document.getElementById(`${
+                this.currentRow
+            }-${
+                this.activeCell
+            }`);
+            if (selectedCell.innerText === "" && this.activeCell > 0) {
+                const previousCell = document.getElementById(`${
+                    this.currentRow
+                }-${
+                    this.activeCell - 1
+                }`);
+                previousCell.innerText = "";
+                this.setActiveCell(this.currentRow, this.activeCell - 1);
+                return;
+            }
+            selectedCell.innerText = "";
+            if (this.activeCell > 0) {
+                this.setActiveCell(this.currentRow, this.activeCell - 1);
+            }
+
+            return;
+        }
+        if (key >= "A" && key <= "Z") {
+            const selectedCell = document.getElementById(`${
+                this.currentRow
+            }-${
+                this.activeCell
+            }`);
+            selectedCell.innerText = key;
+            if (this.activeCell < 4) {
+                this.setActiveCell(this.currentRow, this.activeCell + 1);
+            }
+            return;
         }
     }
-    handleCellClick(row, col) {
+    setActiveCell(row, col) {
         if (row === this.currentRow) {
             const currentActiveCell = document.getElementById(`${
                 this.currentRow
