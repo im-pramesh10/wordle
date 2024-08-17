@@ -7,6 +7,10 @@ class Game {
         this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
         this.currentRow = 0;
         this.activeCell = 0;
+        this.gameState = "playing"; // playing, won, lost
+        this.presentLetters = new Set();
+        this.absentLetters = new Set();
+        this.correctLetters = new Set();
         this.initializeBoard();
     }
     initializeBoard() {
@@ -90,7 +94,6 @@ class Game {
             "M",
             "⌫"
         ];
-
         const keyboard = document.getElementById("keyboard");
         keyboard.innerHTML = "";
         for (let i = 0; i < 3; i++) {
@@ -109,6 +112,13 @@ class Game {
                 key.className = "key";
                 if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
                     key.className = "key special-key";
+                }
+                if (this.presentLetters.has(arrayRefrence[j])) {
+                    key.className = "key present";
+                } else if (this.absentLetters.has(arrayRefrence[j])) {
+                    key.className = "key absent";
+                } else if (this.correctLetters.has(arrayRefrence[j])) {
+                    key.className = "key correct";
                 }
                 key.innerText = arrayRefrence[j];
                 keyboardRow.appendChild(key);
@@ -133,11 +143,14 @@ class Game {
             }
             for (let i = 0; i < this.word.length; i++) {
                 if (this.word[i] === textcontent[i]) {
-                    this.boardState[this.currentRow][i] = 1;
+                    this.boardState[this.currentRow][i] = 1; // correct
+                    this.correctLetters.add(textcontent[i].toUpperCase());
                 } else if (this.word.includes(textcontent[i])) {
-                    this.boardState[this.currentRow][i] = 2;
+                    this.boardState[this.currentRow][i] = 2; // present
+                    this.presentLetters.add(textcontent[i].toUpperCase());
                 } else {
-                    this.boardState[this.currentRow][i] = 3;
+                    this.boardState[this.currentRow][i] = 3; // absent
+                    this.absentLetters.add(textcontent[i].toUpperCase());
                 }
             }
 
@@ -148,6 +161,7 @@ class Game {
             this.currentRow ++;
             this.activeCell = 0;
             this.renderBoard();
+            this.renderKeyboard();
             return;
         }
         if (key === "⌫") {
@@ -204,6 +218,10 @@ class Game {
     }
     reStart() {
         this.newGame();
+        const correctWord = document.getElementById("correct-word");
+        correctWord.innerHTML = "";
+        const replayContainer = document.getElementById("replay-container");
+        replayContainer.innerHTML = "";
     }
 
     showCorrectWord(word) {
