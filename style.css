@@ -120,13 +120,13 @@ body {
         margin: 5px;
     }
     .key {
-        width: 32px;
-        height: 32px;
+        width: 33px;
+        height: 45px;
         font-size: 14px;
         margin: 2px;
     }
     .special-key {
         width: 50px;
-        height: 32px;
+        height: 45px;
     }
 }
