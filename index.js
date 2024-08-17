@@ -2,6 +2,7 @@ import {wordlist, allowedList} from "./wordlist.js";
 class Game {
     constructor() {
         this.newGame();
+        this.physicalKeyboardHandler();
     }
     newGame() {
         this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
@@ -25,35 +26,34 @@ class Game {
 
         this.renderBoard();
         this.renderKeyboard();
-        this.handlePhysicalKeyboard();
     }
 
-    handlePhysicalKeyboard() {
-        document.addEventListener("keydown", (event) => {
-            let key = event.key;
-            if (key >= "a" && key <= "z") {
-                key = key.toUpperCase();
-            } else if (key === "Backspace") {
-                key = "⌫";
-            } else if (key === "Enter") {
-                key = "⏎";
-            } else if (key === "ArrowLeft") {
-                if (this.activeCell > 0) {
-                    this.setActiveCell(this.currentRow, this.activeCell - 1);
-                }
-                return;
-            } else if (key === "ArrowRight") {
-                if (this.activeCell < 4) {
-                    this.setActiveCell(this.currentRow, this.activeCell + 1);
-                }
-                return;
-            } else {
-                key = "";
+    physicalKeyboardHandler() {
+            document.addEventListener("keydown", this.handlePhysicalKeyboard.bind(this));
+    }
+    handlePhysicalKeyboard(event) {
+        let key = event.key;
+        if (key >= "a" && key <= "z") {
+            key = key.toUpperCase();
+        } else if (key === "Backspace") {
+            key = "⌫";
+        } else if (key === "Enter") {
+            key = "⏎";
+        } else if (key === "ArrowLeft") {
+            if (this.activeCell > 0) {
+                this.setActiveCell(this.currentRow, this.activeCell - 1);
             }
-            this.handleKeyPress(key);
-        })
+            return;
+        } else if (key === "ArrowRight") {
+            if (this.activeCell < 4) {
+                this.setActiveCell(this.currentRow, this.activeCell + 1);
+            }
+            return;
+        } else {
+            key = "";
+        }
+        this.handleKeyPress(key);
     }
-
     renderBoard() {
         const board = document.getElementById("board");
         board.innerHTML = "";
@@ -197,7 +197,7 @@ class Game {
             if (this.currentRow === 5) {
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
-                if (textcontent === this.word) {
+                if (textcontent !== this.word) {
                     this.gameState = "lost";
                 }
             }
@@ -226,9 +226,9 @@ class Game {
             }
             selectedCell.innerText = "";
             this.board[this.currentRow][this.activeCell] = "";
-            if (this.activeCell > 0) {
-                this.setActiveCell(this.currentRow, this.activeCell - 1);
-            }
+            // if (this.activeCell > 0) {
+            //     this.setActiveCell(this.currentRow, this.activeCell - 1);
+            // }
 
             return;
         }
@@ -261,17 +261,26 @@ class Game {
         }
     }
     reStart() {
-        this.newGame();
         const correctWord = document.getElementById("correct-word");
         correctWord.innerHTML = "";
         const replayContainer = document.getElementById("replay-container");
         replayContainer.innerHTML = "";
+        this.newGame();
     }
 
     showCorrectWord(word) {
         const correctWord = document.getElementById("correct-word");
-        correctWord.innerHTML = `<p>Word: <span id="correct-word" style="font-weight: bold; color: rgb(75, 221, 62);">${word}</span></p>`;
+        const message = this.gameState === "won" ? "You won!" : "You lost!";
+        const color = this.gameState === "won" ? "rgb(75, 221, 62)" : "rgb(255, 0, 0)"; // Green if won, red if lost
+
+        correctWord.innerHTML = `
+            <div style="text-align: center;">
+                <p style="color: ${color};">${message}</p>
+                <p>Word: <span style="font-weight: bold; color: green;">${word}</span></p>
+            </div>
+        `;
     }
+
     showReplayButton() {
 
         const replayContainer = document.getElementById("replay-container");
