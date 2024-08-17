@@ -21,10 +21,6 @@ class Game {
 
         this.renderBoard();
         this.renderKeyboard();
-        // if (this.currentRow === 6) {
-        //     this.showCorrectWord(this.word);
-        //     this.showReplayButton();
-        // }
     }
 
     renderBoard() {
@@ -137,22 +133,10 @@ class Game {
             }
             for (let i = 0; i < this.word.length; i++) {
                 if (this.word[i] === textcontent[i]) {
-                    // const correctCell = document.getElementById(`${
-                    //     this.currentRow
-                    // }-${i}`);
-                    // correctCell.className = "cell correct";
                     this.boardState[this.currentRow][i] = 1;
                 } else if (this.word.includes(textcontent[i])) {
-                    // const presentCell = document.getElementById(`${
-                    //     this.currentRow
-                    // }-${i}`);
-                    // presentCell.className = "cell present";
                     this.boardState[this.currentRow][i] = 2;
                 } else {
-                    // const absentCell = document.getElementById(`${
-                    //     this.currentRow
-                    // }-${i}`);
-                    // absentCell.className = "cell absent";
                     this.boardState[this.currentRow][i] = 3;
                 }
             }
@@ -160,12 +144,10 @@ class Game {
             if (this.currentRow === 5) {
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
-                return;
             }
             this.currentRow ++;
             this.activeCell = 0;
             this.renderBoard();
-            // this.setActiveCell(this.currentRow, 0);
             return;
         }
         if (key === "⌫") {
