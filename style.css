@@ -98,9 +98,9 @@ body {
 }
 
 .correct, .correct:hover {
-    background-color: rgb(153, 255, 0);
-    color: rgb(0, 0, 0);
-    border: 2px solid rgb(153, 255, 0);
+    background-color: rgb(75, 122, 3);
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(75, 122, 3);
 }
 .absent, .absent:hover {
     background-color: rgb(126, 126, 126);
