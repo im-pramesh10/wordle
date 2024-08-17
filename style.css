@@ -89,6 +89,21 @@ body {
     background-color: rgb(75, 75, 75);
 }
 
+.correct, .correct:hover {
+    background-color: rgb(153, 255, 0);
+    color: rgb(0, 0, 0);
+    border: none;
+}
+.absent, .absent:hover {
+    background-color: rgb(56, 56, 56);
+    color: rgb(255, 255, 255);
+    border: none;
+}
+.present, .present:hover {
+    background-color: rgb(243, 188, 7);
+    color: rgb(27, 27, 27);
+    border: none;
+}
 @media screen and (max-width: 600px) {
     body {
         font-size: 14px;
