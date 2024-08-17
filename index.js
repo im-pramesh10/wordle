@@ -132,6 +132,9 @@ class Game {
     }
 
     handleKeyPress(key) {
+        if (this.gameState !== "playing") {
+            return;
+        }
         if (key === "⏎") {
             const selectedrow = document.getElementById(`row${
                 this.currentRow
@@ -148,18 +151,31 @@ class Game {
                 if (this.word[i] === textcontent[i]) {
                     this.boardState[this.currentRow][i] = 1; // correct
                     this.correctLetters.add(textcontent[i].toUpperCase());
+                    this.absentLetters.delete(textcontent[i].toUpperCase());
+                    this.presentLetters.delete(textcontent[i].toUpperCase());
                 } else if (this.word.includes(textcontent[i])) {
                     this.boardState[this.currentRow][i] = 2; // present
                     this.presentLetters.add(textcontent[i].toUpperCase());
+                    this.correctLetters.delete(textcontent[i].toUpperCase());
+                    this.absentLetters.delete(textcontent[i].toUpperCase());
                 } else {
                     this.boardState[this.currentRow][i] = 3; // absent
                     this.absentLetters.add(textcontent[i].toUpperCase());
+                    this.presentLetters.delete(textcontent[i].toUpperCase());
+                    this.correctLetters.delete(textcontent[i].toUpperCase());
                 }
             }
-
+            if (textcontent === this.word) {
+                this.gameState = "won";
+                this.showCorrectWord(this.word);
+                this.showReplayButton();
+            }
             if (this.currentRow === 5) {
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
+                if (textcontent === this.word) {
+                    this.gameState = "lost";
+                }
             }
             this.currentRow ++;
             this.activeCell = 0;
