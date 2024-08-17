@@ -5,8 +5,7 @@ class Game {
         this.physicalKeyboardHandler();
     }
     newGame() {
-        // this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
-        this.word = "hello";
+        this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
         this.currentRow = 0;
         this.activeCell = 0;
         this.gameState = "playing"; // playing, won, lost
