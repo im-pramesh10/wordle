@@ -29,6 +29,14 @@ body {
     font-weight: bold;
     transition: linear 0.3s;
 }
+.icon {
+    width: 25px;
+    height: 25px;
+    transition: ease-in-out 0.3s;
+}
+.icon:hover {
+    transform: scale(1.2);
+}
 
 .cell:hover {
     background-color: rgb(34, 34, 34);
