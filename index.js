@@ -5,7 +5,8 @@ class Game {
         this.physicalKeyboardHandler();
     }
     newGame() {
-        this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
+        // this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
+        this.word = "hello";
         this.currentRow = 0;
         this.activeCell = 0;
         this.gameState = "playing"; // playing, won, lost
@@ -193,8 +194,7 @@ class Game {
                 this.gameState = "won";
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
-            }
-            if (this.currentRow === 5) {
+            }else if (this.currentRow === 5) {
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
                 if (textcontent !== this.word) {
