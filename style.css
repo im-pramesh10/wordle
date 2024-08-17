@@ -151,4 +151,13 @@ body {
     .key:hover {
         background-color: rgb(34, 34, 34);
     }
+    .present:hover {
+        background-color: rgb(243, 188, 7);
+    }
+    .absent:hover {
+        background-color: rgb(126, 126, 126);
+    }
+    .correct:hover {
+        background-color: rgb(75, 122, 3);
+    }
 }
