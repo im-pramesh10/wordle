@@ -1,4 +1,4 @@
-import {wordlist} from "./wordlist.js";
+import {wordlist, allowedList} from "./wordlist.js";
 class Game {
     constructor() {
         this.newGame();
@@ -120,7 +120,7 @@ class Game {
                 this.currentRow
             }`);
             const textcontent = selectedrow.innerText.replace(/\s+/g, '').trim();
-            if (!wordlist.includes(textcontent.toLowerCase())) {
+            if (!allowedList.includes(textcontent.toLowerCase())) {
                 alert("Word not in the word List")
                 return;
             }
