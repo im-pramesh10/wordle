@@ -217,7 +217,7 @@ class Game {
                 return
             }
             if (!allowedList.includes(textcontent)) {
-                this.showNotification("error", "Word not found in wordlist");
+                this.showNotification("error", `"${textcontent.toUpperCase()}" is not in the wordlist`);
                 return;
             }
             for (let i = 0; i < this.word.length; i++) {
