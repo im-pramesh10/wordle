@@ -178,6 +178,7 @@ class Game {
                 buttonContainer.className = "key-container";
                 buttonContainer.id = arrayRefrence[j];
                 const key = document.createElement("button");
+                key.id = `button-${arrayRefrence[j]}`;
                 key.className = "key";
                 if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
                     key.className = "key special-key";
@@ -208,6 +209,11 @@ class Game {
             }
             return;
         }
+        const pressedDownKey = document.getElementById(`button-${key}`);
+        pressedDownKey.classList.add("pressed"); 
+        setTimeout(() => {
+            pressedDownKey.classList.remove("pressed");
+        },300)
         if (key === "⏎") {
             const selectedrow = document.getElementById(`row${
                 this.currentRow

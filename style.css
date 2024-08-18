@@ -73,6 +73,9 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     position: relative;
 }
+.key.pressed {
+    transform: scale(0.9);
+}
 .key-container {
     position: relative;
 }
