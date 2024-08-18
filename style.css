@@ -55,7 +55,7 @@ body {
 #keyboard {
     margin: 10px;
 }
-.key {
+.key, .animated-key {
     width: 40px;
     height: 40px;
     border: 2px solid rgb(110, 110, 110);
@@ -71,6 +71,7 @@ body {
     background-color: rgb(34, 34, 34);
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: relative;
 }
 
 .key:hover {
@@ -79,6 +80,37 @@ body {
 .special-key {
     width: 80px;
     height: 40px;
+}
+.animated-key {
+    opacity: 0;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    color: black;
+    position: absolute;
+    animation: keyanimation 0.4s ease-in-out;
+}
+
+@keyframes keyanimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    25% {
+        opacity: 0.5;
+        transform: translateY(-30px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-40px);
+    }
+    75% {
+        opacity: 0.5;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
 }
 
 #replay {
@@ -165,7 +197,7 @@ body {
     #keyboard {
         margin: 5px;
     }
-    .key {
+    .key, .animated-key {
         width: 33px;
         height: 45px;
         font-size: 14px;
@@ -182,7 +214,7 @@ body {
     }
 }
 @media screen and (max-width: 360px) {
-    .key {
+    .key, .animated-key {
         width: 32px;
         height: 45px;
         font-size: 14px;

@@ -137,6 +137,7 @@ class Game {
             for (let j = 0; j < arrayRefrence.length; j++) {
                 const key = document.createElement("button");
                 key.className = "key";
+                key.id = arrayRefrence[j];
                 if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
                     key.className = "key special-key";
                 }
@@ -231,6 +232,15 @@ class Game {
             return;
         }
         if (key >= "A" && key <= "Z") {
+            const pressedKey = document.getElementById(key);
+            const animatedKey = document.createElement('div')
+            animatedKey.className = "animated-key";
+            animatedKey.innerText = key;
+            pressedKey.appendChild(animatedKey);
+
+            setTimeout(() => {
+                pressedKey.removeChild(animatedKey);
+            }, 400);
             const selectedCell = document.getElementById(`${
                 this.currentRow
             }-${
