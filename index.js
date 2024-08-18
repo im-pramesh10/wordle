@@ -236,7 +236,7 @@ class Game {
         }
         if (key >= "A" && key <= "Z") {
             const pressedKey = document.getElementById(key);
-            const animatedKey = document.createElement('span');
+            const animatedKey = document.createElement('div');
             animatedKey.className = "animated-key";
             animatedKey.innerText = key;
             pressedKey.appendChild(animatedKey);
