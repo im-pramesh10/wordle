@@ -174,7 +174,14 @@ class Game {
                 return
             }
             if (!allowedList.includes(textcontent)) {
-                alert("Word not in the word List")
+                const notifContainer = document.getElementById("notif-div");
+                const wordlisNotif = document.createElement("div");
+                wordlisNotif.className = "notification-element";
+                wordlisNotif.innerText = "Word not in the word List";
+                notifContainer.appendChild(wordlisNotif);
+                setTimeout(() => {
+                    notifContainer.removeChild(wordlisNotif);
+                }, 1500);
                 return;
             }
             for (let i = 0; i < this.word.length; i++) {
@@ -228,10 +235,6 @@ class Game {
             }
             selectedCell.innerText = "";
             this.board[this.currentRow][this.activeCell] = "";
-            // if (this.activeCell > 0) {
-            //     this.setActiveCell(this.currentRow, this.activeCell - 1);
-            // }
-
             return;
         }
         if (key >= "A" && key <= "Z") {

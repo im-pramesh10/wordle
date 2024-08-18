@@ -1,4 +1,5 @@
 body {
+    position: relative;
     background-color: rgb(0,0,0);
     color: white;
     overflow: auto;
@@ -112,6 +113,48 @@ body {
     color: rgb(27, 27, 27);
     border: 2px solid rgb(243, 188, 7);
 }
+.popup-notification {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    pointer-events: none;
+}
+.notification-element {
+    padding: 5px;
+    margin: 2px;
+    border-radius: 10px;
+    background-color: rgb(155, 65, 65);
+    width: 100%;
+    text-align: center;
+    color: white;
+    opacity: 0; /* Start with the element hidden */
+    animation: fadeInOut 1.5s ease-in-out;
+}
+@keyframes fadeInOut {
+    0% {
+        opacity: 0; /* Element is hidden at the start */
+        transform: translateY(10px); /* Slide up effect */
+    }
+    10% {
+        opacity: 1; /* Element is fully visible */
+        transform: translateY(0); /* Slide into place */
+    }
+    90% {
+        opacity: 1; /* Element stays visible */
+        transform: translateY(0); /* No movement */
+    }
+    100% {
+        opacity: 0; /* Element fades out */
+        transform: translateY(-10px); /* Slide up effect as it disappears */
+    }
+}
+
 @media screen and (max-width: 600px) {
     body {
         font-size: 14px;
