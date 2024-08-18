@@ -267,9 +267,9 @@ class Game {
             }-${
                 this.activeCell
             }`);
-            currentActiveCell.className = "cell";
+            currentActiveCell.classList.remove("active");
             const cell = document.getElementById(`${row}-${col}`);
-            cell.className = "cell active";
+            cell.classList.add("active");
             this.activeCell = col;
         }
     }
