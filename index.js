@@ -135,9 +135,11 @@ class Game {
                 arrayRefrence = thirdrow;
             }
             for (let j = 0; j < arrayRefrence.length; j++) {
+                const buttonContainer = document.createElement("div");
+                buttonContainer.className = "key-container";
+                buttonContainer.id = arrayRefrence[j];
                 const key = document.createElement("button");
                 key.className = "key";
-                key.id = arrayRefrence[j];
                 if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
                     key.className = "key special-key";
                 }
@@ -149,7 +151,8 @@ class Game {
                     key.className = "key absent";
                 }
                 key.innerText = arrayRefrence[j];
-                keyboardRow.appendChild(key);
+                buttonContainer.appendChild(key);
+                keyboardRow.appendChild(buttonContainer);
 
                 key.addEventListener("click", () => {
                     this.handleKeyPress(arrayRefrence[j]);
@@ -233,7 +236,7 @@ class Game {
         }
         if (key >= "A" && key <= "Z") {
             const pressedKey = document.getElementById(key);
-            const animatedKey = document.createElement('div')
+            const animatedKey = document.createElement('span');
             animatedKey.className = "animated-key";
             animatedKey.innerText = key;
             pressedKey.appendChild(animatedKey);
