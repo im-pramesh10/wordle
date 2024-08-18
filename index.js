@@ -250,7 +250,7 @@ class Game {
             this.activeCell = 0;
             this.renderBoard();
             this.renderKeyboard();
-            this.showNotification(this.gameState === "won" ? "success" : "error", textcontent);
+            this.showNotification(this.gameState === "won" ? "success" : "error", textcontent.toUpperCase());
             return;
         }
         if (key === "⌫") {
