@@ -29,7 +29,7 @@ class Game {
     }
 
     physicalKeyboardHandler() {
-            document.addEventListener("keydown", this.handlePhysicalKeyboard.bind(this));
+        document.addEventListener("keydown", this.handlePhysicalKeyboard.bind(this));
     }
     handlePhysicalKeyboard(event) {
         let key = event.key;
@@ -161,7 +161,7 @@ class Game {
     handleKeyPress(key) {
         if (this.gameState !== "playing") {
             if (key === "R") {
-            this.reStart();
+                this.reStart();
             }
             return;
         }
@@ -174,14 +174,7 @@ class Game {
                 return
             }
             if (!allowedList.includes(textcontent)) {
-                const notifContainer = document.getElementById("notif-div");
-                const wordlisNotif = document.createElement("div");
-                wordlisNotif.className = "notification-element";
-                wordlisNotif.innerText = "Word not in the word List";
-                notifContainer.appendChild(wordlisNotif);
-                setTimeout(() => {
-                    notifContainer.removeChild(wordlisNotif);
-                }, 1500);
+                this.showNotification("error", "Word not found in wordlist");
                 return;
             }
             for (let i = 0; i < this.word.length; i++) {
@@ -203,7 +196,7 @@ class Game {
                 this.gameState = "won";
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
-            }else if (this.currentRow === 5) {
+            } else if (this.currentRow === 5) {
                 this.showCorrectWord(this.word);
                 this.showReplayButton();
                 if (textcontent !== this.word) {
@@ -251,6 +244,22 @@ class Game {
             return;
         }
     }
+
+    showNotification(type, message) {
+        const types = ["success", "error"];
+        if (! types.includes(type)) {
+            console.error("Notification type is invalid");
+            return
+        }
+        const notifContainer = document.getElementById("notif-div");
+        const wordlisNotif = document.createElement("div");
+        wordlisNotif.className = type === "success" ? "notification-element success" : "notification-element";
+        wordlisNotif.innerText = message;
+        notifContainer.appendChild(wordlisNotif);
+        setTimeout(() => {
+            notifContainer.removeChild(wordlisNotif);
+        }, 1500);
+    }
     setActiveCell(row, col) {
         if (row === this.currentRow) {
             const currentActiveCell = document.getElementById(`${
@@ -276,7 +285,7 @@ class Game {
         const correctWord = document.getElementById("correct-word");
         const message = this.gameState === "won" ? "You won!" : "You lost!";
         const color = this.gameState === "won" ? "rgb(75, 221, 62)" : "rgb(255, 0, 0)"; // Green if won, red if lost
-
+        this.gameState === "won" ? this.showNotification("success", "Congratulations!!! " + message) : this.showNotification("error", "Sorry!!! " + message);
         correctWord.innerHTML = `
             <div style="text-align: center;">
                 <p style="color: ${color};">${message}</p>

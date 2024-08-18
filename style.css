@@ -136,6 +136,9 @@ body {
     opacity: 0; /* Start with the element hidden */
     animation: fadeInOut 1.5s ease-in-out;
 }
+.notification-element.success {
+    background-color: rgb(62, 102, 3);
+}
 @keyframes fadeInOut {
     0% {
         opacity: 0; /* Element is hidden at the start */
