@@ -160,6 +160,9 @@ class Game {
 
     handleKeyPress(key) {
         if (this.gameState !== "playing") {
+            if (key === "R") {
+            this.reStart();
+            }
             return;
         }
         if (key === "⏎") {
@@ -285,7 +288,7 @@ class Game {
         const replayContainer = document.getElementById("replay-container");
         const replayButton = document.createElement("button");
         replayButton.id = "replay";
-        replayButton.innerText = "⟳ Replay";
+        replayButton.innerText = "⟳ Replay (R)";
         replayContainer.appendChild(replayButton);
         replayButton.addEventListener("click", () => {
             this.reStart();
