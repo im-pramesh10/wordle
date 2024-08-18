@@ -235,7 +235,6 @@ class Game {
             return;
         }
         if (key >= "A" && key <= "Z") {
-            console.log(key);
             const selectedCell = document.getElementById(`${
                 this.currentRow
             }-${
