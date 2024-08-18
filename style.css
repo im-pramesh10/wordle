@@ -118,7 +118,7 @@ body {
     }
 }
 
-#replay {
+#replay, .replay {
     background-color: rgb(41, 41, 41);
     color: rgb(255, 255, 255);
     border: 2px solid rgb(133, 133, 133);
@@ -131,7 +131,7 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#replay:hover {
+#replay:hover, .replay:hover {
     background-color: rgb(75, 75, 75);
 }
 

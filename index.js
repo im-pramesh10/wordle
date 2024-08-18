@@ -2,7 +2,7 @@ import {wordlist, allowedList} from "./wordlist.js";
 class Game {
     constructor() {
         this.newGame();
-        this.physicalKeyboardHandler();
+        this.addEventHandlers();
     }
     newGame() {
         this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
@@ -28,9 +28,48 @@ class Game {
         this.renderKeyboard();
     }
 
-    physicalKeyboardHandler() {
+    addEventHandlers() {
         document.addEventListener("keydown", this.handlePhysicalKeyboard.bind(this));
+        
+        document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+            
+            // Remove any existing custom menu
+            const existingMenu = document.getElementById('custom-menu');
+            if (existingMenu) {
+                existingMenu.remove();
+            }
+    
+            const customMenu = document.createElement("div");
+            customMenu.id = "custom-menu";
+            customMenu.style.position = "absolute";
+            customMenu.style.top = `${event.clientY}px`;
+            customMenu.style.left = `${event.clientX}px`;
+            customMenu.style.zIndex = "999";
+
+            const replayButton = document.createElement("button");
+            replayButton.className = "replay";
+            replayButton.innerText = "⟳ Replay";
+            customMenu.appendChild(replayButton);
+    
+            replayButton.addEventListener("click", () => {
+                this.reStart();
+                customMenu.remove(); // Remove menu after clicking replay
+            });
+    
+            document.body.appendChild(customMenu);
+            
+            // Hide custom menu when clicking elsewhere
+            const hideMenu = (event) => {
+                if (!customMenu.contains(event.target)) {
+                    customMenu.remove();
+                    document.removeEventListener("click", hideMenu);
+                }
+            };
+            document.addEventListener("click", hideMenu);
+        });
     }
+    
     handlePhysicalKeyboard(event) {
         let key = event.key;
         if (key >= "a" && key <= "z") {
