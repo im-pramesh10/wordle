@@ -30,38 +30,42 @@ class Game {
 
     addEventHandlers() {
         document.addEventListener("keydown", this.handlePhysicalKeyboard.bind(this));
-        
+
         document.addEventListener("contextmenu", (event) => {
             event.preventDefault();
-            
+
             // Remove any existing custom menu
             const existingMenu = document.getElementById('custom-menu');
             if (existingMenu) {
                 existingMenu.remove();
             }
-    
+
             const customMenu = document.createElement("div");
             customMenu.id = "custom-menu";
             customMenu.style.position = "absolute";
-            customMenu.style.top = `${event.clientY}px`;
-            customMenu.style.left = `${event.clientX}px`;
+            customMenu.style.top = `${
+                event.clientY
+            }px`;
+            customMenu.style.left = `${
+                event.clientX
+            }px`;
             customMenu.style.zIndex = "999";
 
             const replayButton = document.createElement("button");
             replayButton.className = "replay";
             replayButton.innerText = "⟳ Replay";
             customMenu.appendChild(replayButton);
-    
+
             replayButton.addEventListener("click", () => {
                 this.reStart();
                 customMenu.remove(); // Remove menu after clicking replay
             });
-    
+
             document.body.appendChild(customMenu);
-            
+
             // Hide custom menu when clicking elsewhere
             const hideMenu = (event) => {
-                if (!customMenu.contains(event.target)) {
+                if (! customMenu.contains(event.target)) {
                     customMenu.remove();
                     document.removeEventListener("click", hideMenu);
                 }
@@ -69,7 +73,7 @@ class Game {
             document.addEventListener("click", hideMenu);
         });
     }
-    
+
     handlePhysicalKeyboard(event) {
         let key = event.key;
         if (key >= "a" && key <= "z") {
@@ -178,7 +182,9 @@ class Game {
                 buttonContainer.className = "key-container";
                 buttonContainer.id = arrayRefrence[j];
                 const key = document.createElement("button");
-                key.id = `button-${arrayRefrence[j]}`;
+                key.id = `button-${
+                    arrayRefrence[j]
+                }`;
                 key.className = "key";
                 if (arrayRefrence[j] === "⏎" || arrayRefrence[j] === "⌫") {
                     key.className = "key special-key";
@@ -209,11 +215,15 @@ class Game {
             }
             return;
         }
-        const pressedDownKey = document.getElementById(`button-${key}`);
-        pressedDownKey.classList.add("pressed"); 
-        setTimeout(() => {
-            pressedDownKey.classList.remove("pressed");
-        },300)
+
+        if (key) {
+            const pressedDownKey = document.getElementById(`button-${key}`);
+            pressedDownKey.classList.add("pressed");
+            setTimeout(() => {
+                pressedDownKey.classList.remove("pressed");
+            }, 300)
+        }
+
         if (key === "⏎") {
             const selectedrow = document.getElementById(`row${
                 this.currentRow
@@ -223,7 +233,9 @@ class Game {
                 return
             }
             if (!allowedList.includes(textcontent)) {
-                this.showNotification("error", `"${textcontent.toUpperCase()}" is not in the wordlist`);
+                this.showNotification("error", `"${
+                    textcontent.toUpperCase()
+                }" is not in the wordlist`);
                 return;
             }
             for (let i = 0; i < this.word.length; i++) {
