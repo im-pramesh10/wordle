@@ -7,7 +7,8 @@ self.addEventListener('install', function(event) {
           '/style.css',
           '/index.js',
           '/wordlist.js',
-          '/fallback.html'
+          '/fallback.html',
+          '/github.svg'
         ]);
       })
     );
