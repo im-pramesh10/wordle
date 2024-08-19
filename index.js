@@ -40,6 +40,7 @@ class Game {
                 this.allowedList.push(decodedWord)
             }
             this.firstReload = false;
+            this.showNotification("error", "Custom Word Mode");
             this.customMode = true;
             this.word = decodedWord;
         } else {
