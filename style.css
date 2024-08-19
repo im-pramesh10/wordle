@@ -7,7 +7,7 @@ body {
 }
 .header {
     display: flex;
-    width: 45%;
+    width: 100%;
     align-items: center; 
     justify-content: space-between; 
     margin: 20px; 
@@ -24,6 +24,12 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
+}
+#url{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column
 }
 .sliding-menu {
     visibility: hidden;

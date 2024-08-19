@@ -1,6 +1,6 @@
 import {wordlist, allowedList} from "./wordlist.js";
 class Game {
-    constructor(wordlist,allowedList) {
+    constructor(wordlist, allowedList) {
         this.wordlist = wordlist;
         this.allowedList = allowedList;
         this.firstReload = true;
@@ -66,12 +66,23 @@ class Game {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const base64Word = btoa(event.target[0].value);
+            if (!base64Word) {
+                return
+            }
             const baseURI = window.location.origin + window.location.pathname;
             const url = `${baseURI}?word=${
                 encodeURIComponent(base64Word)
             }`;
             const urlContainer = document.getElementById('url');
-            urlContainer.innerHTML = `<span id="url-text">${url}</span> <span class="submit" id="copy">copy</span>`
+            urlContainer.innerHTML = `
+                <div id="url-text">
+                    ${url}
+                </div>
+                <div class="submit" id="copy" style="cursor: pointer; width: fit-content; margin-left: 10px;">
+                    Copy
+                </div>
+                `;
+
             const copy = document.getElementById("copy");
             copy.addEventListener("click", () => {
                 navigator.clipboard.writeText(url);
@@ -436,6 +447,6 @@ class Game {
 
 
 function main() {
-    const game = new Game(wordlist,allowedList);
+    const game = new Game(wordlist, allowedList);
 }
 main()
