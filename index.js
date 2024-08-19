@@ -1,6 +1,9 @@
 import {wordlist, allowedList} from "./wordlist.js";
 class Game {
-    constructor() {
+    constructor(wordlist,allowedList) {
+        this.wordlist = wordlist;
+        this.allowedList = allowedList;
+        this.firstReload = true;
         this.isSlidingMenuVisible = false;
         this.handlePhysicalKeyboardIns = this.handlePhysicalKeyboard.bind(this)
         this.newGame();
@@ -25,7 +28,17 @@ class Game {
     }
 
     newGame() {
-        this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
+        const wordQuery = window.location.search;
+        const urlParams = new URLSearchParams(wordQuery);
+        const word = urlParams.get('word');
+        if (word && this.firstReload) {
+            const decodedWord = atob(decodeURIComponent(word))
+            this.allowedList.push(decodedWord)
+            this.firstReload = false;
+            this.word = decodedWord;
+        } else {
+            this.word = this.wordlist[Math.floor(Math.random() * wordlist.length)];
+        }
         this.currentRow = 0;
         this.activeCell = 0;
         this.gameState = "playing"; // playing, won, lost
@@ -53,8 +66,10 @@ class Game {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const base64Word = btoa(event.target[0].value);
-            const baseURI = window.location.href;
-            const url = `${baseURI}?word=${encodeURIComponent(base64Word)}`;
+            const baseURI = window.location.origin + window.location.pathname;
+            const url = `${baseURI}?word=${
+                encodeURIComponent(base64Word)
+            }`;
             const urlContainer = document.getElementById('url');
             urlContainer.innerHTML = `<span id="url-text">${url}</span> <span class="submit" id="copy">copy</span>`
             const copy = document.getElementById("copy");
@@ -273,7 +288,7 @@ class Game {
             if (textcontent.length !== 5) {
                 return
             }
-            if (!allowedList.includes(textcontent)) {
+            if (!this.allowedList.includes(textcontent)) {
                 this.showNotification("error", `"${
                     textcontent.toUpperCase()
                 }" is not in the wordlist`);
@@ -421,6 +436,6 @@ class Game {
 
 
 function main() {
-    const game = new Game();
+    const game = new Game(wordlist,allowedList);
 }
 main()
