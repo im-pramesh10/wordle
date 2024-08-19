@@ -47,10 +47,10 @@ body {
     align-items: center;
 }
 .slidedown {
-    animation: slidedown 0.5s linear forwards;
+    animation: slidedown 0.2s ease-in-out forwards;
 }
 .slideup {
-    animation: slideup 0.5s linear forwards;
+    animation: slideup 0.2s ease-in-out forwards;
 }
 @keyframes slideup {
     0% {
@@ -58,11 +58,6 @@ body {
         opacity: 1;
         top: 0;
     }    
-    50% {
-        visibility: visible;
-        opacity: 0.5;
-        top: -50%;
-    }
     100% {
         visibility: hidden;
         opacity: 0;
@@ -74,11 +69,6 @@ body {
         visibility: hidden;
         opacity: 0;
         top: -100%;
-    }
-    50% {
-        visibility: visible;
-        opacity: 0.5;
-        top: -50%;
     }
     100% {
         visibility: visible;
