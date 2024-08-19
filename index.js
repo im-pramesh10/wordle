@@ -1,9 +1,29 @@
 import {wordlist, allowedList} from "./wordlist.js";
 class Game {
     constructor() {
+        this.isSlidingMenuVisible = false;
+        this.handlePhysicalKeyboardIns = this.handlePhysicalKeyboard.bind(this)
         this.newGame();
         this.addEventHandlers();
     }
+
+    toggleSlidingMenuVisibility() {
+        this.isSlidingMenuVisible = !this.isSlidingMenuVisible;
+        const slidingMenu = document.getElementById("sliding-menu");
+
+        if (slidingMenu) {
+            if (this.isSlidingMenuVisible) {
+                slidingMenu.classList.remove("slideup");
+                slidingMenu.classList.add("slidedown");
+                document.removeEventListener("keydown", this.handlePhysicalKeyboardIns);
+            } else {
+                slidingMenu.classList.remove("slidedown");
+                slidingMenu.classList.add("slideup");
+                document.addEventListener("keydown", this.handlePhysicalKeyboardIns);
+            }
+        }
+    }
+
     newGame() {
         this.word = wordlist[Math.floor(Math.random() * wordlist.length)];
         this.currentRow = 0;
@@ -29,8 +49,29 @@ class Game {
     }
 
     addEventHandlers() {
-        document.addEventListener("keydown", this.handlePhysicalKeyboard.bind(this));
-
+        const form = document.getElementById("myForm");
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const base64Word = btoa(event.target[0].value);
+            const baseURI = window.location.href;
+            const url = `${baseURI}?word=${encodeURIComponent(base64Word)}`;
+            const urlContainer = document.getElementById('url');
+            urlContainer.innerHTML = `<span id="url-text">${url}</span> <span class="submit" id="copy">copy</span>`
+            const copy = document.getElementById("copy");
+            copy.addEventListener("click", () => {
+                navigator.clipboard.writeText(url);
+                this.showNotification("success", "Copied to clipboard");
+            })
+        })
+        const close = document.getElementById("close");
+        close.addEventListener("click", () => {
+            this.toggleSlidingMenuVisibility();
+        })
+        document.addEventListener("keydown", this.handlePhysicalKeyboardIns);
+        const customButton = document.getElementById("custom-button");
+        customButton.addEventListener("click", () => {
+            this.toggleSlidingMenuVisibility();
+        });
         document.addEventListener("contextmenu", (event) => {
             event.preventDefault();
 
