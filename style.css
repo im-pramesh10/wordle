@@ -5,11 +5,88 @@ body {
     overflow: auto;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+.header {
+    display: flex;
+    width: 45%;
+    align-items: center; 
+    justify-content: space-between; 
+    margin: 20px; 
+}
+
+.flex-item {
+    flex: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
 #root{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
+.sliding-menu {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* opacity: 0; */
+    background-color: rgba(0, 0, 0, 0.856);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.slidedown {
+    animation: slidedown 0.5s linear forwards;
+}
+.slideup {
+    animation: slideup 0.5s linear forwards;
+}
+@keyframes slideup {
+    0% {
+        visibility: visible;
+        opacity: 1;
+        top: 0;
+    }    
+    50% {
+        visibility: visible;
+        opacity: 0.5;
+        top: -50%;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+        top: -100%;
+    }
+}
+@keyframes slidedown {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+        top: -100%;
+    }
+    50% {
+        visibility: visible;
+        opacity: 0.5;
+        top: -50%;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+        top: 0;
+    }
+}
+#myForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -29,6 +106,16 @@ body {
     margin: 4px;
     font-weight: bold;
     transition: linear 0.3s;
+}
+.cell.m-cell {
+    background-color: rgb(41, 41, 41);
+    width: 100%;
+    height: 30px;
+    font-size: ;
+    color: white;
+    text-align: center;
+    text-align: center;
+    text-transform: uppercase;
 }
 .icon {
     width: 25px;
@@ -121,7 +208,7 @@ body {
     }
 }
 
-#replay, .replay {
+#replay, .replay, .submit {
     background-color: rgb(41, 41, 41);
     color: rgb(255, 255, 255);
     border: 2px solid rgb(133, 133, 133);
@@ -132,6 +219,14 @@ body {
     transition: linear 0.3s;
     font-weight: bold;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.submit {
+    border-radius: 4px;
+    margin: 6px;
+    font-size: 16px;
+    background-color: rgb(26, 211, 124);
+    border: none;
+    color: black;
 }
 
 #replay:hover, .replay:hover {
