@@ -32,7 +32,7 @@ class Game {
         const urlParams = new URLSearchParams(wordQuery);
         const word = urlParams.get('word');
         if (word && this.firstReload) {
-            const decodedWord = atob(decodeURIComponent(word))
+            const decodedWord = atob(decodeURIComponent(word)).toLowerCase();
             if (!this.allowedList.includes(decodedWord)) {
                 this.allowedList.push(decodedWord)
             }
