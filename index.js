@@ -1,6 +1,7 @@
 import {wordlist, allowedList} from "./wordlist.js";
 class Game {
     constructor(wordlist, allowedList) {
+        this.dontShowWord = false;
         this.wordlist = wordlist;
         this.allowedList = allowedList;
         this.firstReload = true;
@@ -30,13 +31,16 @@ class Game {
     newGame() {
         const wordQuery = window.location.search;
         const urlParams = new URLSearchParams(wordQuery);
-        const word = urlParams.get('word');
+        const word = urlParams.get('cfg');
         if (word && this.firstReload) {
-            const decodedWord = atob(decodeURIComponent(word)).toLowerCase();
+            const decodedWords = atob(decodeURIComponent(word)).split(',');
+            const decodedWord = decodedWords[0].toLowerCase();
+            this.dontShowWord = JSON.parse(decodedWords[1]);
             if (!this.allowedList.includes(decodedWord)) {
                 this.allowedList.push(decodedWord)
             }
             this.firstReload = false;
+            this.customMode = true;
             this.word = decodedWord;
         } else {
             this.word = this.wordlist[Math.floor(Math.random() * wordlist.length)];
@@ -67,14 +71,15 @@ class Game {
         const form = document.getElementById("myForm");
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const base64Word = btoa(event.target[0].value);
+            const base64Word = btoa(event.target[0].value+","+event.target[1].checked);
             if (! base64Word) {
                 return
             }
             const baseURI = window.location.origin + window.location.pathname;
-            const url = `${baseURI}?word=${
+            const url = `${baseURI}?cfg=${
                 encodeURIComponent(base64Word)
             }`;
+            console.log(event.target[1].checked);
             const urlContainer = document.getElementById('url');
             urlContainer.innerHTML = `
                 <div id="url-text">
@@ -418,20 +423,26 @@ class Game {
         correctWord.innerHTML = "";
         const replayContainer = document.getElementById("replay-container");
         replayContainer.innerHTML = "";
+        this.dontShowWord = false;
+        if (!this.firstReload && this.customMode) {
+            this.showNotification("error", "Switching to default mode from custom mode");
+            this.customMode = false;
+        }
         this.newGame();
     }
 
     showCorrectWord(word) {
         const correctWord = document.getElementById("correct-word");
         const message = this.gameState === "won" ? "You won!" : "You lost!";
-        const color = this.gameState === "won" ? "rgb(75, 221, 62)" : "rgb(255, 0, 0)"; // Green if won, red if lost
         this.gameState === "won" ? this.showNotification("success", "Congratulations!!! " + message) : this.showNotification("error", "Sorry!!! " + message);
-        correctWord.innerHTML = `
+        if (!this.dontShowWord){
+            correctWord.innerHTML = `
             <div style="text-align: center;">
-                <p style="color: ${color};">${message}</p>
                 <p>Word: <span style="font-weight: bold; color: green;">${word}</span></p>
             </div>
         `;
+        }
+        
     }
 
     showReplayButton() {

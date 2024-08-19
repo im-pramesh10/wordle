@@ -38,7 +38,11 @@
           <div id="custom-word-container" class="row">     
             <input class="cell m-cell" type="text" maxlength="5" pattern="[A-Za-z]{5}" id="mc-1" title="Provide 5 letter word" autocomplete="off">
           </div>
-          <input class="submit" type="submit" value="Generate Url">
+          <label for="mc-2" class="row label" title="Don't show word when game ends!">
+          <input type="checkbox" id="mc-2" name="mc-2">
+            Don't show word
+          </label>
+          <input class="submit" type="submit" value="Generate Url">   
         </form>
         <div id="url"></div>
         <button class="close" id="close">Close</button>
