@@ -72,7 +72,7 @@ class Game {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const base64Word = btoa(event.target[0].value+","+event.target[1].checked);
-            if (! base64Word) {
+            if (! event.target[0].value) {
                 return
             }
             const baseURI = window.location.origin + window.location.pathname;
