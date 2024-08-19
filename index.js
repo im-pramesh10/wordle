@@ -33,7 +33,9 @@ class Game {
         const word = urlParams.get('word');
         if (word && this.firstReload) {
             const decodedWord = atob(decodeURIComponent(word))
-            this.allowedList.push(decodedWord)
+            if (!this.allowedList.includes(decodedWord)) {
+                this.allowedList.push(decodedWord)
+            }
             this.firstReload = false;
             this.word = decodedWord;
         } else {
@@ -66,7 +68,7 @@ class Game {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const base64Word = btoa(event.target[0].value);
-            if (!base64Word) {
+            if (! base64Word) {
                 return
             }
             const baseURI = window.location.origin + window.location.pathname;
