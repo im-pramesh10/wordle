@@ -72,8 +72,8 @@ class Game {
         const form = document.getElementById("myForm");
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const base64Word = btoa(event.target[0].value+","+event.target[1].checked);
-            if (! event.target[0].value) {
+            const base64Word = btoa(event.target[0].value + "," + event.target[1].checked);
+            if (!event.target[0].value) {
                 return
             }
             const baseURI = window.location.origin + window.location.pathname;
@@ -151,22 +151,23 @@ class Game {
 
     handlePhysicalKeyboard(event) {
         let key = event.key;
-        if (key >= "a" && key <= "z") {
-            key = key.toUpperCase();
-        } else if (key === "Backspace") {
+        console.log(key);
+        if (key === "Backspace") {
             key = "⌫";
         } else if (key === "Enter") {
             key = "⏎";
-        } else if (key === "ArrowLeft") {
+        } else if (key === "ArrowLeft" || key === "ArrowDown" || key === "4" || key === "2") {
             if (this.activeCell > 0) {
                 this.setActiveCell(this.currentRow, this.activeCell - 1);
             }
             return;
-        } else if (key === "ArrowRight") {
+        } else if (key === "ArrowRight" || key === "ArrowUp" || key === "6" || key === "8") {
             if (this.activeCell < 4) {
                 this.setActiveCell(this.currentRow, this.activeCell + 1);
             }
             return;
+        } else if (key.length === 1 && ((key >= "a" && key <= "z") || (key >= "A" && key <= "Z"))) {
+            key = key.toUpperCase();
         } else {
             key = "";
         }
@@ -436,14 +437,14 @@ class Game {
         const correctWord = document.getElementById("correct-word");
         const message = this.gameState === "won" ? "You won!" : "You lost!";
         this.gameState === "won" ? this.showNotification("success", "Congratulations!!! " + message) : this.showNotification("error", "Sorry!!! " + message);
-        if (!this.dontShowWord){
+        if (!this.dontShowWord) {
             correctWord.innerHTML = `
             <div style="text-align: center;">
                 <p>Word: <span style="font-weight: bold; color: green;">${word}</span></p>
             </div>
         `;
         }
-        
+
     }
 
     showReplayButton() {
@@ -465,12 +466,11 @@ function main() {
 }
 main()
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').then(function(registration) {
-        console.log('Service Worker registered with scope:', registration.scope);
-      }, function(err) {
-        console.log('Service Worker registration failed:', err);
-      });
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').then(function (registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }, function (err) {
+            console.log('Service Worker registration failed:', err);
+        });
     });
-  }
-  
+}
