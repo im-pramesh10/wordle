@@ -151,7 +151,6 @@ class Game {
 
     handlePhysicalKeyboard(event) {
         let key = event.key;
-        console.log(key);
         if (key === "Backspace") {
             key = "⌫";
         } else if (key === "Enter") {
