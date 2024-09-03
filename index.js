@@ -80,7 +80,6 @@ class Game {
             const url = `${baseURI}?cfg=${
                 encodeURIComponent(base64Word)
             }`;
-            console.log(event.target[1].checked);
             const urlContainer = document.getElementById('url');
             urlContainer.innerHTML = `
                 <div id="url-text">
